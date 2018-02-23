@@ -19,34 +19,29 @@ def klammernloeschen (str):
 
             klammerauf = str.find('(')
             klammerzu = str.find(')')
-    s.write(str)
 
-    return;
+    return str;
 
-klammernloeschen(script)
-
-s.close()
-
-s = open("C:/Users/Piasu/Desktop/dhprojekt/djangounchained2.txt", 'r')
-
-script = s.read()
-
-
+#Sprechanteil 
 def sprechanteil(script, name):
 
     a = 0
     e = 0
     all = 0
+    #while-Schleife .. weiter machen bis Name nicht mehr gefunden
     while(a != -1 and e != -1):
 
         a = script.find(name+'\n           ') + len(name)
         temp = script[a:]
         e = temp.find(' \n')
-        texttom = temp[:e]
-        #print(texttom)
-        texttomlist = word_tokenize(texttom)
-        #print(texttomlist)
-
+        text = temp[:e]
+        #print(text)
+        
+        #Text in Liste von Wörtern spliten
+        textlist = word_tokenize(text)
+        #print(textlist)
+        
+        #Satzzeichen aus List entfernen
         def removing(list):
             for i in list:
                 if i == '?':
@@ -61,9 +56,7 @@ def sprechanteil(script, name):
                     list.remove('...')
             return list;
 
-        removing(texttomlist)
-
-        #print(texttomlist)
+        removing(textlist)
 
         def countingwords(list):
             woerter = 0
@@ -72,7 +65,7 @@ def sprechanteil(script, name):
             return woerter;
 
 
-        mehr = countingwords(texttomlist)
+        mehr = countingwords(textlist)
         #print(mehr)
 
         all = all + mehr
@@ -84,7 +77,8 @@ def sprechanteil(script, name):
 
     print(name + " sagt " + str(all) + " Wörter.")
 
-f.close()
+
+klammernloeschen(script)
 
 name = input("Gib einen Namen ein:")
 sprechanteil(script, name)
