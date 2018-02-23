@@ -43,7 +43,7 @@ for t in script:
 '''
 
 
-script = get_script("http://www.imsdb.com/scripts/Deadpool.html")
+script = get_script(input("Gib die URL des zu bearbeitenden Films ein:"))
 text=''
 for lines in script.splitlines(True):
     if lines.startswith("           "):
