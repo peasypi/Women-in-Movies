@@ -1,54 +1,41 @@
-from urllib.request import urlopen as uReq
-from bs4 import BeautifulSoup as soup
-import re
+from re import match
 
-def klammernloeschen (str):
-    klammerauf = str.find('(')
-    klammerzu = str.find(')')
+f = open("/Users/Nils/MEGAsync/Dokumente/Uni/3. Semester/DH/IntroDH17/La_la_land_script.txt", "r")
+script = f.read()
 
-    while (klammerauf != -1 and klammerzu != -1):
+characters = ["MIA", "SEBASTIAN"]
+prefix_speaker = True
 
-        if(klammerauf<klammerzu):
-            str = str[:klammerauf] + str[klammerzu+1:]
+out = speaker = ""
+for line in input():
+    # parse all lines beginning with at least one tab
+    result = match(r"^(\t+)(\S.*?)\s*$", line)
+    if not result:
+        continue
+    tabs = len(result.group(1))
+    text = result.group(2)
+    if tabs == 5:
+        # dialogue header
+        if speaker != text:
+            # speaker changed, print what we've got and start over
+            if len(out) > 0:
+                if prefix_speaker:
+                    print ("%s: %s" % (speaker, out))
+                else:
+                    print (out)
+            out = ""
+            speaker = text
+    elif tabs == 3 and any(c in speaker for c in characters):
+        # spoken line
+        # append this line to the dialogue, with a space
+        if len(out) > 0:
+            out += " "
+        out += text
+    else:
+        # ignore all other lines
+        pass
 
-
-        klammerauf = str.find('(')
-        klammerzu = str.find(')')
-    print(str)
-    return
-
-
-def get_script(str):
-    my_url = str
-    uClient = uReq(my_url)
-    page_html = uClient.read()
-    uClient.close()
-    page_soup = soup(page_html,"html.parser")
-            #find_all_b = page_soup.find_all(re.compile("b"))
-
-    text = page_soup.get_text()
-
-
-
-    #print(text)
-    return text
-
-
-'''klammernloeschen(script)
-
-i = 0
-for t in script:
-    if '/n' in script:
-        i += 1
-'''
-
-
-script = get_script(input("Gib die URL des zu bearbeitenden Films ein:"))
-text=''
-for lines in script.splitlines(True):
-    if lines.startswith("           "):
-        text=text+lines
-        print(text)
-
-
-print(klammernloeschen(text))        
+# just in case the input ends in the middle of dialogue
+if len(out) > 0:
+    print (out)
+f.close()

@@ -1,8 +1,7 @@
 from nltk.tokenize import word_tokenize
-import docx
+from re import match
 
-
-f = open("C:/Users/Piasu/Desktop/dhprojekt/lalaland.txt", "r")
+f = open("/Users/Nils/MEGAsync/Dokumente/Uni/3. Semester/DH/IntroDH17/La_la_land_script.txt", "r")
 script = f.read()
 
 def klammernloeschen (str):
@@ -17,9 +16,32 @@ def klammernloeschen (str):
 
             klammerauf = str.find('(')
             klammerzu = str.find(')')
-    return str;
+    return str
+
+
+def removing(list):
+    for i in list:
+        if i == '?':
+            list.remove('?')
+        if i == '!':
+            list.remove('!')
+        if i == '.':
+            list.remove('.')
+        if i == ',':
+            list.remove(',')
+        if i == '...':
+            list.remove('...')
+    return list
+
+
+def countingwords(list):
+    woerter = 0
+    for i in list:
+        woerter = woerter + 1
+    return woerter;
 
 script = klammernloeschen(script)
+#print(script)
 
 def sprechanteil(script, name):
 
@@ -27,55 +49,41 @@ def sprechanteil(script, name):
     e = 0
     all = -len(name)-1
 
-    while(a != -1 and e != -1):
+    if script.find(name)==-1:
+        print("Dieser Charakter sagt in diesem Script nichts")
+    else:
+        while(a != -1 and e != -1):
 
-        a = script.find(name+'\n            ') + len(name)
-        temp = script[a:]
-        e = temp.find(' \n')
-        text = temp[:e]
-        #print(text)
-        textlist = word_tokenize(text)
-        #print(textlist)
+            a = script.find(name+'\n            ') + len(name)
+            print(a)
+            temp = script[a:]
+            t = temp.split("\n")
+            #e = temp.find(' \n')
+            text = t[1]
+            #temp[:e]
+            print(text)
+            textlist = word_tokenize(text)
+            #print (textlist)
 
-        def removing(list):
-            for i in list:
-                if i == '?':
-                    list.remove('?')
-                if i == '!':
-                    list.remove('!')
-                if i == '.':
-                    list.remove('.')
-                if i == ',':
-                    list.remove(',')
-                if i == '...':
-                    list.remove('...')
-            return list;
+            removing(textlist)
 
-        removing(textlist)
+            #print(textlist)
 
-        #print(textlist)
+            mehr = countingwords(textlist)
+            #print(mehr)
 
-        def countingwords(list):
-            woerter = 0
-            for i in list:
-                woerter = woerter+1
-            return woerter;
+            all = all + mehr
 
-
-        mehr = countingwords(textlist)
-        #print(mehr)
-
-        all = all + mehr
-
-        script = script[a+e:]
-        a = script.find(name +'\n           ')
-        temp = script[a:]
-        e = temp.find(' \n')
+            script = script[a+e:]
+            a = script.find(name +'\n           ')
+            temp = script[a:]
+            e = temp.find(' \n')
 
     print(name + " sagt " + str(all) + " Wörter.")
 
 f.close()
 
+#print(script.find("Pia"))
 name = input("Gib einen Namen ein:")
 sprechanteil(script, name)
 name1 = input("Gib einen weiteren Namen ein:")
