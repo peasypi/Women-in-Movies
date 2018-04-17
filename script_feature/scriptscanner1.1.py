@@ -1,8 +1,9 @@
 from nltk.tokenize import word_tokenize
-from re import match
+#from re import match
+import codecs
 
-f = open("/Users/Nils/MEGAsync/Dokumente/Uni/3. Semester/DH/IntroDH17/La_la_land_script.txt", "r")
-script = f.read()
+#f = open("/Users/Nils/MEGAsync/Dokumente/Uni/3. Semester/DH/IntroDH17/La_la_land_script.txt", "r")
+#script = f.read()
 
 def klammernloeschen (str):
     klammerauf = str.find('(')
@@ -19,6 +20,35 @@ def klammernloeschen (str):
     return str
 
 
+
+# script.txt contains the sample text you posted
+with codecs.open('/Users/Nils/MEGAsync/Dokumente/Uni/3. Semester/DH/IntroDH17/La_la_land_script.txt', 'r', 'utf8') as f:
+
+  # read the file content
+  f = f.read()
+
+  # store all the clean text that's accumulated
+  spoken_text = ''
+
+  # split the file into a list of strings, with each line a member in the list
+  for line in f.split('\n'):
+
+    # split the line into a list of words in the line
+    words = line.split()
+
+    # if there are no words, do nothing
+    if not words:
+      continue
+
+    # if this line is a person identifier, do nothing
+    if len(words[0]) > 1 and all([i.isupper() for i in words[0]]):
+      continue
+
+    # if there's a good amount of whitespace to the left, this is a spoken line
+    if len(line) - len(line.lstrip()) > 4:
+      spoken_text += line.strip() + ' '
+
+print(spoken_text)
 def removing(list):
     for i in list:
         if i == '?':
@@ -31,6 +61,8 @@ def removing(list):
             list.remove(',')
         if i == '...':
             list.remove('...')
+        if i == '--':
+            list.remove('--')
     return list
 
 
@@ -40,9 +72,12 @@ def countingwords(list):
         woerter = woerter + 1
     return woerter;
 
-script = klammernloeschen(script)
+#script = klammernloeschen(script)
 #print(script)
 
+#result = match(r"\w[A-Z]+\n\s).+?(?=\n",script)
+#print (result)
+'''
 def sprechanteil(script, name):
 
     a = 0
@@ -80,8 +115,8 @@ def sprechanteil(script, name):
             e = temp.find(' \n')
 
     print(name + " sagt " + str(all) + " Wörter.")
+'''
 
-f.close()
 
 #print(script.find("Pia"))
 name = input("Gib einen Namen ein:")
