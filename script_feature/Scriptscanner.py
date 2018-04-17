@@ -75,3 +75,4 @@ with codecs.open("/Users/Nils/MEGAsync/Dokumente/Uni/3. Semester/DH/IntroDH17/La
 
 
 print(spoken_text1)
+#
