@@ -1,5 +1,3 @@
-from nltk.tokenize import word_tokenize
-#from re import match
 import codecs
 
 #f = open("/Users/Nils/MEGAsync/Dokumente/Uni/3. Semester/DH/IntroDH17/La_la_land_script.txt", "r")
@@ -92,6 +90,7 @@ def sprechanteil(script, name):
             a = script.find(name+'\n            ') + len(name)
             print(a)
             temp = script[a:]
+            
             t = temp.split("\n")
             #e = temp.find(' \n')
             text = t[1]

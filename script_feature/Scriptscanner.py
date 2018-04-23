@@ -1,4 +1,6 @@
 import codecs
+from nltk.tokenize import word_tokenize
+
 
 # script.txt contains the sample text you posted
 
@@ -48,31 +50,38 @@ with codecs.open("/Users/Nils/MEGAsync/Dokumente/Uni/3. Semester/DH/IntroDH17/La
 
   # read the file content
   f = f.read()
+  f = klammernloeschen(f)
+
+  #name = input("Gib den Namen eines Charakters ein:")
 
 
   # store all the clean text that's accumulated
   spoken_text = ''
 
+
   # split the file into a list of strings, with each line a member in the list
-  for line in f.split('\n'):
+for line in f.split('\n'):
+ # sum_list = [ line.split() for line in f.split("\n")]
 
-    # split the line into a list of words in the line
+  #  split the line into a list of words in the line
     words = line.split()
+    #print(words)
 
-    # if there are no words, do nothing
+
+
+
+#if there are no words, do nothing
     if not words:
       continue
 
     # if this line is a person identifier, do nothing
     if len(words[0]) > 1 and all([i.isupper() for i in words[0]]):
-      continue
+        continue
 
     # if there's a good amount of whitespace to the left, this is a spoken line
     if len(line) - len(line.lstrip()) > 8:
-      spoken_text += line.strip() + ' '
-    spoken_text1 = klammernloeschen(spoken_text)
+        spoken_text += line.strip() + ' '
 
 
 
-print(spoken_text1)
-#
+print(spoken_text)

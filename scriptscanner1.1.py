@@ -1,5 +1,5 @@
 from nltk.tokenize import word_tokenize
-import docx
+
 
 
 f = open("C:/Users/Piasu/Desktop/dhprojekt/djangounchained.txt", "r")
