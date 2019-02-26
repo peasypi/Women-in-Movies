@@ -7449,10 +7449,10 @@ sumchar1 = sum(words_spoken[character1].values())
 sumchar2 = sum(words_spoken[character2].values())
 sumchar3 = sum(words_spoken[character3].values())
 sumchar4 = sum(words_spoken[character4].values())
-print(sumchar1)
-print(sumchar2)
-print(sumchar3)
-print(sumchar4)
+# print(sumchar1)
+# print(sumchar2)
+# print(sumchar3)
+# print(sumchar4)
 
 
 #Diagramme
@@ -7467,5 +7467,5 @@ colors = ['#b284be', '#e52b50', '#abcdef', '#848484']
 plt.pie(word_counts, labels=names, colors=colors, startangle=90, autopct='%.1f%%')
 plt.title('Research on words spoken')
 plt.show()
-pprint(set(speaking_people))
+# pprint(set(speaking_people))
 #f.close()
