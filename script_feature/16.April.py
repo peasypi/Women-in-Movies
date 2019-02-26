@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 
 #Liest Script ein
-#f = open("/Users/Nils/women-in-movies/script_feature/Test files/Ted_script.txt", "r")
-script = '''
+#f = open("/Users/Nils/Desktop/La_la_land_script.txt", "r")
+script ='''
 TED
 
 
@@ -7390,11 +7390,12 @@ TED
 '''
 #Gesprochenes zählen
 
-# script.txt contains the sample text you posted
-#with codecs.open(script, 'r', 'utf8') as f:
+#script.txt contains the sample text you posted
 
-  # read the file content
-  #f = f.read()
+with codecs.open(script, 'r', 'utf8') as f:
+
+  #read the file content
+  f = f.read()
 
   # store all the clean text that's accumulated
 spoken_text = ''
