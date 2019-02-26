@@ -7437,7 +7437,7 @@ for line in script.split('\n'):
         words_spoken[currently_speaking].update(line.split())
 
 
-pprint(words_spoken)
+# pprint(words_spoken)
 
 character1 = input("Enter name of character:")
 character2 = input("Enter name of another character:")
