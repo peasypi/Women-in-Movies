@@ -1,9 +1,8 @@
-from nltk.tokenize import word_tokenize
+import nltk
 
 
-
-f = open("C:/Users/Piasu/Desktop/dhprojekt/djangounchained.txt", "r")
-s = open("C:/Users/Piasu/Desktop/dhprojekt/djangounchained2.txt", 'w')
+f = open("/Users/pia/Desktop/Uni/IntroToDH/Women_in_movies/LaLaLand.txt", "r")
+s = open("/Users/pia/Desktop/Uni/IntroToDH/Women_in_movies/women-in-movies/scripts/LaLaLand-versuch.txt", 'w')
 
 script = f.read()
 
@@ -37,8 +36,8 @@ def sprechanteil(script, name):
         text = temp[:e]
         #print(text)
         
-        #Text in Liste von Wörtern spliten
-        textlist = word_tokenize(text)
+        #Text in Liste von Woertern spliten
+        textlist = nltk.word_tokenize(text)
         #print(textlist)
         
         #Satzzeichen aus List entfernen
@@ -75,7 +74,7 @@ def sprechanteil(script, name):
         temp = script[a:]
         e = temp.find(' \n')
 
-    print(name + " sagt " + str(all) + " Wörter.")
+    print(name + " sagt " + str(all) + " Woerter.")
 
 
 klammernloeschen(script)
