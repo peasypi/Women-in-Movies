@@ -1,76 +1,110 @@
+import matplotlib.pyplot as plt
+import re
+import nltk
+
+
+def words_spoken_total(script):
+    spoken_text = ''
+
+  # split the file into a list of strings, with each line a member in the list
+    for line in script.split('\n'):
+
+        # split the line into a list of words in the line
+        words = line.split()
+
+        # if there are no words, do nothing
+        if not words:
+            continue
+
+        # if this line is a person identifier, do nothing
+        if len(words[0]) > 1 and all([i.isupper() for i in words[0]]):
+            continue
+
+        # if there's a good amount of whitespace to the left, this is a spoken line
+        if len(line) - len(line.lstrip()) > 10:
+            spoken_text += line.strip() + ' '
+
+
+    list1 = []
+    spoken = nltk.word_tokenize(spoken_text)
+    for i in spoken:
+        if i.isalpha():
+            list1.append(i)
+
+
+    print(spoken)
+    print(list1)
+    return len(spoken)
+
 script = """               
-            INT. CHURCH - DAY
-                         
-          We hear the Flash Gordon Wedding March as we ANGLE ON Sam
-          J. Jones standing in robes at the altar. Ted, in a tux,
-          stands in the best man's position. John stands on the
-          steps smiling and looking out as we cut to...
-                         
-          ANGLE ON Lori, walking down the aisle in a wedding dress,
-          smiling warmly. TIME CUT to shortly after, as Sam Jones
-          addresses the two of them, standing at the altar.
-                        
-                          TEDDY
-           Hug me.
-                         
-          John yelps and stumbles back, falling over. He stares at
-          Teddy, breathing heavily.
                          
                           JOHN
-           Did you... did you just talk?
+           Ted!
                          
-                          TEDDY
-           You're my best friend, John.
-                         
-                          JOHN
-                          (BEAT)
-           You're alive?!
-                         
-                          TEDDY
-           Uh-huh.
+                          TED
+                          (RETARDED-SOUNDING VOICE)
+           I'm alive, Johnny!
                          
                           JOHN
-           Whoa...
-                         
-                          TEDDY
-           Don't look so surprised. You're the one
-           who wished for it, aren't you?
-                         
-                          JOHN
-           Yeah, I... I did wish for it.
-                         
-                          TEDDY
-           Well, here I am.
-                         
-                          JOHN
-           You mean... we get to be best friends...
-           for real?
-                         
-                          TEDDY
-           For real.
-                         
-                          JOHN
-           Forever and ever?
+           Oh my god!
                          
                           (CONTINUED)
-                          7
+                          125
                          CONTINUED:
                          
-                          TEDDY
-           Sounds good to me.
+                          TED
+                          (RETARDED-SOUNDING VOICE)
+           I'm alive! Your magical wish worked!
+                         
+                          JOHN
+           You're back!
            """
+print(words_spoken_total(script))
+
+'''
+dialog = words_spoken_total(script)
 
 spoken_text = ""
 
+words_spoken = defaultdict(Counter)
+currently_speaking = 'Narrator'
+speaking_people = []
+
 for line in script.split('\n'):
-    words = line.split()
-    if not words:
-        continue
+    name = line.replace('(CONT\'D)', '').strip()
+    if re.match('^[A-Z]+$', name):
+        currently_speaking = name
+        speaking_people.append(currently_speaking)
+    else:
+        words_spoken[currently_speaking].update(line.split())
 
-    if len(words[0]) > 1 and all([i.isupper() for i in words[0]]):
-        continue
 
-    if len(line) - len(line.lstrip()) > 4:
-        spoken_text += line.strip() + ' '
+character1 = input("Enter name of character:")
+character2 = input("Enter name of another character:")
+character3 = input("Character:")
+character4 = input("Character:")
 
-print(spoken_text)
+sumchar1 = sum(words_spoken[character1].values())
+sumchar2 = sum(words_spoken[character2].values())
+sumchar3 = sum(words_spoken[character3].values())
+sumchar4 = sum(words_spoken[character4].values())
+print(sumchar1)
+print(sumchar2)
+print(sumchar3)
+print(sumchar4)
+ 
+
+#Diagramme
+
+labels = [character1,character2]
+values = [sumchar1,sumchar2]
+sonstige = dialog - sumchar1 - sumchar2 - sumchar3
+
+word_counts = [sumchar1, sumchar2, sumchar3 , sonstige]
+names = [character1, character2, character3, "Sonstige"]
+colors = ['#b284be', '#e52b50', '#abcdef', '#848484']
+plt.pie(word_counts, labels=names, colors=colors, startangle=90, autopct='%.1f%%')
+plt.title('Research on words spoken')
+plt.show()
+pprint(set(speaking_people))
+'''
